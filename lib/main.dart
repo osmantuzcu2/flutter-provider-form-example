@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'provider_model.dart';
 import 'result.dart';
 
-
 void main() => runApp(App());
 
 class App extends StatelessWidget {
@@ -22,8 +21,8 @@ class App extends StatelessWidget {
 
 class Home extends StatelessWidget {
   var name = TextEditingController();
-  var lastname  = TextEditingController();
-  var birthday  = TextEditingController();
+  var lastname = TextEditingController();
+  var birthday = TextEditingController();
   bool fav;
   DateTime birthdayDate;
   @override
@@ -38,72 +37,57 @@ class Home extends StatelessWidget {
           children: <Widget>[
             TextField(
               controller: name,
-              decoration: InputDecoration(
-                hintText: 'Name'
-              ),
+              decoration: InputDecoration(hintText: 'Name'),
             ),
             TextField(
               controller: lastname,
-              decoration: InputDecoration(
-                hintText: 'Lastname'
-              ),
+              decoration: InputDecoration(hintText: 'Lastname'),
             ),
-
             TextField(
               controller: birthday,
-              decoration: InputDecoration(
-                hintText: 'Birthday'
-              ),
-              onTap: (){
+              decoration: InputDecoration(hintText: 'Birthday'),
+              onTap: () {
                 showModalBottomSheet(
-                  builder: (BuildContext context) {
-                    return CupertinoDatePicker(
-                      mode: CupertinoDatePickerMode.date,
-                      onDateTimeChanged: (DateTime value) {
-                        test.addBD(value);
-                        birthday.text = value.toString().substring(0,10);
-                      },
-                      
-                    );
-                  }, 
-                  context: context
-                  
-                );
+                    builder: (BuildContext context) {
+                      return CupertinoDatePicker(
+                        mode: CupertinoDatePickerMode.date,
+                        onDateTimeChanged: (DateTime value) {
+                          test.addBD(value);
+                          birthday.text = value.toString().substring(0, 10);
+                        },
+                      );
+                    },
+                    context: context);
               },
             ),
-
             Row(
               children: <Widget>[
                 Text('Did you like?'),
                 IconButton(
-                  onPressed: (){
-                    if(test.like==false)
-                    test.fav(true);
+                  onPressed: () {
+                    if (test.like == false)
+                      test.fav(true);
                     else
-                    test.fav(false);
+                      test.fav(false);
                   },
-                  icon: test.like==false?Icon(Icons.star_border,color:Colors.orange):
-                  Icon(Icons.star,color:Colors.orange)
-                  ,
+                  icon: test.like == false
+                      ? Icon(Icons.star_border, color: Colors.orange)
+                      : Icon(Icons.star, color: Colors.orange),
                 ),
               ],
             ),
             RaisedButton(
-              onPressed: (){
-                  test.addname(name.text);
-                  test.addLastname(lastname.text);
-                  Navigator.push(context, MaterialPageRoute(
-                   builder: (context) => ResultWidget()
-                  ));
+              onPressed: () {
+                test.addname(name.text);
+                test.addLastname(lastname.text);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ResultWidget()));
               },
               child: Text('SEND'),
             )
           ],
         ),
       ),
-      
     );
   }
 }
-
-
